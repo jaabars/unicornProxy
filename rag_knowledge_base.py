@@ -1,12 +1,17 @@
 import psycopg2
 from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
+import os
+import json
+
+load_dotenv()
 
 DB_CONFIG = {
-    'host': '10.10.10.15',
-    'dbname': 'mydb',
-    'user': 'nlguser',
-    'password': 'nlgPassword2025',
-    'port': 5432
+    'host': os.getenv('DB_HOST'),
+    'dbname': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USERNAME'),
+    'password': os.getenv('DB_PASSWORD'),
+    'port': os.getenv('DB_PORT')
 }
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -25,11 +30,11 @@ cur = conn.cursor()
 
 cur.execute(
     "INSERT INTO rag_knowledge_base (title, embedding, curl) VALUES (%s, %s, %s)",
-    (template_title, embedding, template_curl)
+    (template_title, json.dumps(embedding), template_curl)
 )
 
 conn.commit()
 cur.close()
 conn.close()
 
-print("✅ Динамический шаблон успешно добавлен!")
+print("✅ Dynamic template successfully added!")

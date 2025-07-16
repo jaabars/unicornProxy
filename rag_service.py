@@ -4,10 +4,16 @@ from datetime import datetime, timedelta
 import openai
 import httpx
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 model = SentenceTransformer("all-MiniLM-L6-v2")
-openai.api_key = "{}"
+
+# Securely load the API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.post("/custom-report")
 async def custom_report(request: Request):
@@ -25,8 +31,8 @@ async def custom_report(request: Request):
         return {"error": "Failed to extract parameters"}
 
     url = build_custom_url(params)
-
     data = await fetch_report_data(url, bearer_token)
+
     return {"url": url, "data": data}
 
 
@@ -53,8 +59,9 @@ async def fetch_report_data(url: str, token: str) -> dict:
             return response.json()
 
     except Exception as e:
-        print(" HTTP Request Error:", e)
+        print("HTTP Request Error:", e)
         return {"error": str(e)}
+
 
 async def extract_parameters_from_openai(user_prompt: str):
     try:
@@ -67,8 +74,8 @@ async def extract_parameters_from_openai(user_prompt: str):
         system_prompt = f"""
 You are an assistant that extracts structured API parameters from natural language user input.
 
- Return ONLY raw JSON (no explanation).
- Do NOT wrap with markdown like ```json.
+Return ONLY raw JSON (no explanation).
+Do NOT wrap with markdown like ```json.
 
 Extract these keys if mentioned:
 - startDate (format: YYYY-MM-DD)
@@ -100,5 +107,5 @@ Use these rules if user says:
         return json.loads(content)
 
     except Exception as e:
-        print(" OpenAI Error:", e)
+        print("OpenAI Error:", e)
         return None
