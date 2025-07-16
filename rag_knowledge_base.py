@@ -2,10 +2,10 @@ import psycopg2
 from sentence_transformers import SentenceTransformer
 
 DB_CONFIG = {
-    'host': 'localhost',
-    'dbname': 'Boombom',
-    'user': 'postgres',
-    'password': 'admin',
+    'host': '10.10.10.15',
+    'dbname': 'mydb',
+    'user': 'nlguser',
+    'password': 'nlgPassword2025',
     'port': 5432
 }
 

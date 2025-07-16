@@ -1,1 +1,0 @@
-GLG Platform is a cloud-based system that enables companies to create, manage, and analyze experiments.
