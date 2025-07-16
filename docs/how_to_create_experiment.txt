@@ -1,0 +1,1 @@
+To create an experiment, go to 'Experiments', click 'Create', set title, description, and hit 'Launch'.

@@ -1,0 +1,11 @@
+Chief Executive Officer (CEO): Pale Spanos
+Provides overall strategic leadership and ensures alignment with company vision.
+
+Project Manager (PM): Natalija
+Coordinates planning, timelines, and execution of key initiatives across teams.
+
+Chief Technology Officer (CTO): Nikos T.
+Leads the technological direction, innovation strategy, and system architecture.
+
+Team Lead: Aziret Asangaziev
+Oversees technical development, manages engineering workflows, and ensures high-quality delivery.
